@@ -3,60 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0f1a14">
+<meta name="theme-color" content="#0a0512">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>GLOW — Beauty Reimagined</title>
-<meta name="description" content="GLOW | کلکسیون لوازم آرایشی لوکس با فرمولاسیون علمی و گیاهی.">
+<title>AURÉLIA — Where Beauty Becomes Art</title>
+<meta name="description" content="AURÉLIA | کلکسیون لوازم آرایشی و مراقبت پوست لوکس. جایی که زیبایی، هنر می‌شود.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- BACKGROUND BLOBS -->
-<div class="blobs" aria-hidden="true">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-  <div class="blob blob-4"></div>
+<!-- ================= BACKGROUND LAYERS ================= -->
+<div class="bg-layers" aria-hidden="true">
+  <div class="bg-gradient"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+  <div class="orb orb-5"></div>
+  <div class="bg-grid"></div>
 </div>
-
-<!-- LIQUID LINES OVERLAY -->
-<svg class="liquid-lines" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
-  <defs>
-    <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#c9f1a8" stop-opacity="0"/>
-      <stop offset="50%" stop-color="#c9f1a8" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#ff6b9d" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <path d="M-100,300 C200,150 400,450 700,300 C1000,150 1200,400 1540,250" stroke="url(#lineGrad)" stroke-width="1.5" fill="none"/>
-  <path d="M-100,500 C250,400 450,650 750,500 C1050,350 1250,600 1540,450" stroke="url(#lineGrad)" stroke-width="1.5" fill="none"/>
-  <path d="M-100,700 C300,600 500,850 800,700 C1100,550 1300,800 1540,650" stroke="url(#lineGrad)" stroke-width="1.5" fill="none"/>
-</svg>
-
 <div class="grain" aria-hidden="true"></div>
 
-<!-- HEADER -->
+<!-- ================= HEADER ================= -->
 <header class="site-header" id="header">
   <div class="container header-inner">
-    <a href="#hero" class="logo">
-      <span class="logo-mark">G</span>
-      <span class="logo-text">GLOW</span>
+    <a href="#hero" class="logo" aria-label="AURÉLIA">
+      <span class="logo-mark">A</span>
+      <span class="logo-text">AURÉLIA</span>
     </a>
 
     <nav class="nav" id="nav" aria-label="منوی اصلی">
-      <a href="#hero">خانه</a>
-      <a href="#why">چرا ما</a>
-      <a href="#how">چگونه</a>
-      <a href="#gallery">گالری</a>
-      <a href="#contact">تماس</a>
+      <a href="#hero"><span>خانه</span></a>
+      <a href="#brands"><span>برندها</span></a>
+      <a href="#liquid"><span>کلکسیون</span></a>
+      <a href="#gallery"><span>گالری</span></a>
+      <a href="#ritual"><span>تجربه</span></a>
+      <a href="#about"><span>درباره</span></a>
     </nav>
 
     <div class="header-actions">
-      <a href="#contact" class="btn btn-pill btn-sm">رزرو مشاوره</a>
+      <a href="#contact" class="btn btn-glass btn-sm">
+        <span>رزرو مشاوره</span>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l-7 7 7 7"/></svg>
+      </a>
       <button class="burger" id="burger" aria-label="منو" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -64,258 +56,333 @@
   </div>
 </header>
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 <section class="hero" id="hero">
-  <div class="hero-media">
-    <img class="hero-img"
-         src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=2400&q=90&auto=format&fit=crop"
-         alt="">
-  </div>
-
-  <div class="hero-wash"></div>
-
   <div class="container hero-inner">
-    <div class="hero-eyebrow-row reveal">
-      <span class="hero-tag">◆ Collection MMXXVI</span>
-      <span class="hero-meta">New Formulas · Clean Science</span>
+    <!-- متن سمت راست (RTL: چپ بصری) -->
+    <div class="hero-content">
+      <div class="hero-eyebrow reveal">
+        <span class="pulse-dot"></span>
+        <span>Collection MMXXVI</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="hero-line reveal">Beauty</span>
+        <span class="hero-line reveal delay-1">
+          <em>Becomes</em>
+        </span>
+        <span class="hero-line reveal delay-2">Art</span>
+      </h1>
+
+      <p class="hero-sub reveal delay-3">
+        AURÉLIA جایی است که زیبایی، یک اثر هنری می‌شود. کلکسیونی از محصولات لوکس مراقبت پوست و آرایش، برای سلیقه‌های بی‌همتا.
+      </p>
+
+      <div class="hero-cta reveal delay-4">
+        <a href="#liquid" class="btn btn-primary btn-lg">
+          <span>کشف کلکسیون</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l-7 7 7 7"/></svg>
+        </a>
+        <a href="#about" class="btn btn-ghost-light btn-lg">
+          <span>درباره ما</span>
+        </a>
+      </div>
+
+      <div class="hero-meta reveal delay-5">
+        <div class="meta-item">
+          <strong>50+</strong>
+          <span>Maisons</span>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <strong>10K+</strong>
+          <span>Clients</span>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <strong>100%</strong>
+          <span>Original</span>
+        </div>
+      </div>
     </div>
 
-    <h1 class="hero-title reveal">
-      <span class="h-line h-line-1">THE</span>
-      <span class="h-line h-line-2">SOFTNESS</span>
-      <span class="h-line h-line-3">
-        YOUR SKIN
-        <em class="h-em">Deserves</em>
-      </span>
-    </h1>
+    <!-- تصویر سمت چپ (RTL: راست بصری) -->
+    <div class="hero-visual reveal delay-2">
+      <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+      <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
 
-    <p class="hero-sub reveal">
-      جایی که علم پوست با زیبایی خالص گره می‌خورد. فرمولاسیون‌های سبک، گیاهی و قدرتمند
-      برای پوستی که شایسته‌ی نگاه‌هاست.
-    </p>
+      <div class="hero-image-frame">
+        <div class="hero-image-inner">
+          <img
+            src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1400&q=90&auto=format&fit=crop"
+            alt="AURÉLIA — مدل زیبایی"
+            loading="eager">
+        </div>
 
-    <div class="hero-cta reveal">
-      <a href="#gallery" class="btn btn-primary">
-        <span>کاوش کلکسیون</span>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      </a>
-      <a href="#about" class="btn btn-outline">داستان ما</a>
-    </div>
-
-    <div class="hero-badges reveal">
-      <div class="hero-badge">
-        <div class="badge-orb"></div>
-        <div>
-          <strong>۱۰۰٪</strong>
+        <div class="hero-chip chip-1" aria-hidden="true">
+          <span class="chip-dot"></span>
+          <span>Vegan Formula</span>
+        </div>
+        <div class="hero-chip chip-2" aria-hidden="true">
+          <span class="chip-dot"></span>
           <span>Cruelty Free</span>
         </div>
-      </div>
-      <div class="hero-badge">
-        <div class="badge-orb badge-orb-2"></div>
-        <div>
-          <strong>۴۹+</strong>
-          <span>Active Botanicals</span>
+        <div class="hero-chip chip-3" aria-hidden="true">
+          <span class="chip-dot"></span>
+          <span>Premium</span>
         </div>
+
+        <div class="hero-glint" aria-hidden="true"></div>
       </div>
-      <div class="hero-badge">
-        <div class="badge-orb badge-orb-3"></div>
-        <div>
-          <strong>۲۴K+</strong>
-          <span>Happy Clients</span>
-        </div>
+
+      <div class="hero-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4-6.2-4.6-6.2 4.6 2.4-7.4L2 9.4h7.6z"/></svg>
+        <span>Editor's Choice 2026</span>
       </div>
     </div>
   </div>
 
-  <div class="hero-side" aria-hidden="true">
-    <div class="side-bead side-bead-1"></div>
-    <div class="side-bead side-bead-2"></div>
-    <div class="side-bead side-bead-3"></div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span class="scroll-text">Scroll</span>
+    <span class="scroll-line"></span>
   </div>
 </section>
 
-<!-- MARQUEE -->
+<!-- ================= MARQUEE ================= -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span>SCIENCE</span><span class="m-dot">◆</span>
-    <span class="m-alt">CALM</span><span class="m-dot">◆</span>
-    <span>SKIN</span><span class="m-dot">◆</span>
-    <span class="m-alt">GLOW</span><span class="m-dot">◆</span>
-    <span>SCIENCE</span><span class="m-dot">◆</span>
-    <span class="m-alt">CALM</span><span class="m-dot">◆</span>
-    <span>SKIN</span><span class="m-dot">◆</span>
-    <span class="m-alt">GLOW</span><span class="m-dot">◆</span>
+    <span>LUXURY BEAUTY</span><em>◆</em>
+    <span>CRUELTY FREE</span><em>◆</em>
+    <span>VEGAN FORMULA</span><em>◆</em>
+    <span>HANDCRAFTED</span><em>◆</em>
+    <span>SKIN SCIENCE</span><em>◆</em>
+    <span>LUXURY BEAUTY</span><em>◆</em>
+    <span>CRUELTY FREE</span><em>◆</em>
+    <span>VEGAN FORMULA</span><em>◆</em>
+    <span>HANDCRAFTED</span><em>◆</em>
+    <span>SKIN SCIENCE</span><em>◆</em>
   </div>
 </div>
 
-<!-- WHY -->
-<section class="why" id="why">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">◆ Why GLOW</span>
-      <h2 class="section-title">بیش از یک <em>فروشگاه</em></h2>
-      <p class="section-sub">تجربه‌ای متفاوت از زیبایی، طراحی‌شده برای پوست و روح شما</p>
-    </div>
-
-    <div class="why-grid">
-      <article class="why-card reveal">
-        <div class="why-icon" data-shape="leaf"></div>
-        <div class="why-content">
-          <h3>Bio-Design فرمول</h3>
-          <p>فرمولاسیون‌های گیاهی که در آزمایشگاه‌های معتبر اروپایی طراحی و تست شده‌اند.</p>
-          <ul class="why-list">
-            <li>+۸۷٪ جذب مؤثرتر</li>
-            <li>-۶۰٪ التهاب پوستی</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="why-card reveal">
-        <div class="why-icon" data-shape="sphere"></div>
-        <div class="why-content">
-          <h3>تجربه‌ی دیجیتال</h3>
-          <p>مشاوره‌ی اختصاصی پوست، انتخاب فرمول مناسب و پیشنهادهای هوشمند.</p>
-          <ul class="why-list">
-            <li>چت مشاوره‌ی حرفه‌ای</li>
-            <li>پیشنهاد اختصاصی برای هر پوست</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="why-card reveal">
-        <div class="why-icon" data-shape="drop"></div>
-        <div class="why-content">
-          <h3>بابل کرم</h3>
-          <p>بافت‌های نوآورانه که نه تنها استفاده می‌شوند، بلکه تجربه‌ای حسی می‌سازند.</p>
-          <ul class="why-list">
-            <li>۱۵ ترکیب عطری متفاوت</li>
-            <li>بافت‌های چندحسی</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="why-card reveal">
-        <div class="why-icon" data-shape="wave"></div>
-        <div class="why-content">
-          <h3>توسعه‌ی پایدار</h3>
-          <p>بسته‌بندی ۱۰۰٪ قابل بازیافت و همکاری با کشاورزان محلی.</p>
-          <ul class="why-list">
-            <li>۱۰۰٪ biodegradable</li>
-            <li>بدون تست روی حیوانات</li>
-          </ul>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- HOW -->
-<section class="how" id="how">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">◆ The Science</span>
-      <h2 class="section-title">این <em>چگونه</em> کار می‌کند؟</h2>
-    </div>
-
-    <div class="how-grid">
-      <div class="how-media reveal">
-        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1600&q=90&auto=format&fit=crop" alt="">
-        <div class="how-media-glow"></div>
-        <div class="how-float-card">
-          <span class="dot"></span>
-          <span>Rhode-Inspired Clean</span>
-        </div>
-      </div>
-
-      <div class="how-text">
-        <p class="reveal">
-          هر فرمول GLOW، یک کپسول از علم و طبیعت است. مولکول‌های فعال، از دل گیاهان
-          استخراج شده و با فناوری نانو به عمق پوست نفوذ می‌کنند.
-        </p>
-        <p class="reveal">
-          وقتی محصول روی پوست شما می‌نشیند، رهاسازی تدریجی فعال‌ها آغاز می‌شود —
-          لایه‌ای نرم، ماندگار و مؤثر.
-        </p>
-
-        <div class="how-steps">
-          <div class="how-step reveal">
-            <span class="step-num">01</span>
-            <div>
-              <h4>Extraction</h4>
-              <p>استخراج فعال‌های گیاهی با روش‌های سرد</p>
-            </div>
-          </div>
-          <div class="how-step reveal">
-            <span class="step-num">02</span>
-            <div>
-              <h4>Formulation</h4>
-              <p>ترکیب علمی در آزمایشگاه</p>
-            </div>
-          </div>
-          <div class="how-step reveal">
-            <span class="step-num">03</span>
-            <div>
-              <h4>Release</h4>
-              <p>آزادسازی تدریجی روی پوست شما</p>
-            </div>
-          </div>
-        </div>
-
-        <a href="#contact" class="btn btn-primary reveal">
-          <span>دریافت مشاوره</span>
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="bead-cluster" aria-hidden="true">
-    <div class="bead bead-pink"></div>
-    <div class="bead bead-violet"></div>
-    <div class="bead bead-blue"></div>
-    <div class="bead bead-coral"></div>
-  </div>
-</section>
-
-<!-- BRANDS -->
+<!-- ================= BRANDS ================= -->
 <section class="brands" id="brands">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">◆ Maisons We Carry</span>
       <h2 class="section-title">Iconic <em>Houses</em></h2>
+      <p class="section-sub">منتخبی از معتبرترین خانه‌های زیبایی جهان — با اصالت تضمین‌شده.</p>
     </div>
 
-    <div class="brands-row">
-      <div class="brand-chip reveal">Dior</div>
-      <div class="brand-chip reveal">Chanel</div>
-      <div class="brand-chip reveal">YSL</div>
-      <div class="brand-chip reveal">Tom Ford</div>
-      <div class="brand-chip reveal">Lancôme</div>
-      <div class="brand-chip reveal">Charlotte Tilbury</div>
-      <div class="brand-chip reveal">NARS</div>
-      <div class="brand-chip reveal">MAC</div>
-      <div class="brand-chip reveal">Fenty</div>
-      <div class="brand-chip reveal">Rare Beauty</div>
-      <div class="brand-chip reveal">Benefit</div>
-      <div class="brand-chip reveal">Guerlain</div>
+    <div class="brands-grid">
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=800&q=90&auto=format&fit=crop" alt="Dior" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">Dior</span>
+          <span class="brand-tag">Paris</span>
+        </div>
+      </article>
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=800&q=90&auto=format&fit=crop" alt="Chanel" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">Chanel</span>
+          <span class="brand-tag">Paris</span>
+        </div>
+      </article>
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?w=800&q=90&auto=format&fit=crop" alt="YSL" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">YSL</span>
+          <span class="brand-tag">Paris</span>
+        </div>
+      </article>
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=800&q=90&auto=format&fit=crop" alt="Tom Ford" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">Tom Ford</span>
+          <span class="brand-tag">London</span>
+        </div>
+      </article>
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&q=90&auto=format&fit=crop" alt="Lancôme" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">Lancôme</span>
+          <span class="brand-tag">Paris</span>
+        </div>
+      </article>
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?w=800&q=90&auto=format&fit=crop" alt="Charlotte Tilbury" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">Charlotte Tilbury</span>
+          <span class="brand-tag">London</span>
+        </div>
+      </article>
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=90&auto=format&fit=crop" alt="NARS" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">NARS</span>
+          <span class="brand-tag">New York</span>
+        </div>
+      </article>
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=800&q=90&auto=format&fit=crop" alt="MAC" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">MAC</span>
+          <span class="brand-tag">New York</span>
+        </div>
+      </article>
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=800&q=90&auto=format&fit=crop" alt="Fenty" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">Fenty</span>
+          <span class="brand-tag">Global</span>
+        </div>
+      </article>
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1583241800698-e8ab01830a38?w=800&q=90&auto=format&fit=crop" alt="Rare Beauty" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">Rare Beauty</span>
+          <span class="brand-tag">Los Angeles</span>
+        </div>
+      </article>
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=90&auto=format&fit=crop" alt="Benefit" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">Benefit</span>
+          <span class="brand-tag">San Francisco</span>
+        </div>
+      </article>
+      <article class="brand-tile reveal">
+        <div class="brand-img">
+          <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=800&q=90&auto=format&fit=crop" alt="Guerlain" loading="lazy">
+          <div class="brand-img-veil"></div>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-name">Guerlain</span>
+          <span class="brand-tag">Paris</span>
+        </div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- GALLERY -->
+<!-- ================= LIQUID SHOWCASE ================= -->
+<section class="liquid" id="liquid">
+  <div class="liquid-bg" aria-hidden="true">
+    <div class="liquid-blob liquid-blob-1"></div>
+    <div class="liquid-blob liquid-blob-2"></div>
+    <div class="liquid-blob liquid-blob-3"></div>
+  </div>
+
+  <div class="container liquid-inner">
+    <div class="liquid-head reveal">
+      <span class="eyebrow">◆ Signature Formula</span>
+      <h2 class="liquid-title">
+        The <em>Liquid</em> Glow
+      </h2>
+      <p class="liquid-sub">
+        فرمولی منحصربه‌فرد که در تماس با پوست ذوب می‌شود. رطوبت، درخشش و لطافت — در یک لحظه.
+      </p>
+    </div>
+
+    <div class="liquid-stage">
+      <div class="liquid-visual reveal">
+        <div class="liquid-glow" aria-hidden="true"></div>
+        <div class="liquid-frame">
+          <img
+            src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1600&q=90&auto=format&fit=crop"
+            alt="سرم لوکس AURÉLIA"
+            loading="lazy">
+          <div class="liquid-sheen"></div>
+        </div>
+
+        <div class="liquid-float liquid-float-1" aria-hidden="true">
+          <span class="float-ring"></span>
+          <span>pH Balanced</span>
+        </div>
+        <div class="liquid-float liquid-float-2" aria-hidden="true">
+          <span class="float-ring"></span>
+          <span>Dermatologist Tested</span>
+        </div>
+      </div>
+
+      <div class="liquid-copy reveal delay-1">
+        <div class="liquid-index">01</div>
+        <h3>سرُم درخشان — Radiance Serum</h3>
+        <p>
+          با ترکیبی از ویتامین C پایدار، اسید هیالورونیک سه‌وزنی و عصاره‌ی گل رز، پوست شما را در ۲۸ روز
+          به درخششی بی‌نظیر می‌رساند.
+        </p>
+
+        <ul class="liquid-features">
+          <li><span>+۹۸٪</span> افزایش رطوبت پوست پس از ۴ هفته</li>
+          <li><span>+۸۷٪</span> کاهش خطوط ریز و علائم خستگی</li>
+          <li><span>۱۰۰٪</span> تست‌شده توسط متخصص پوست</li>
+        </ul>
+
+        <a href="#contact" class="btn btn-primary btn-lg">
+          <span>درخواست مشاوره</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l-7 7 7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="liquid-thumbs reveal" aria-hidden="true">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=85&auto=format&fit=crop" alt="" loading="lazy"></div>
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&q=85&auto=format&fit=crop" alt="" loading="lazy"></div>
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&q=85&auto=format&fit=crop" alt="" loading="lazy"></div>
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=85&auto=format&fit=crop" alt="" loading="lazy"></div>
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?w=400&q=85&auto=format&fit=crop" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
 <section class="gallery-section" id="gallery">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">◆ The Collection</span>
       <h2 class="section-title">A World of <em>Beauty</em></h2>
-      <p class="section-sub">برای دیدن همه‌ی تصاویر، به چپ و راست بکشید</p>
+      <p class="section-sub">برای دیدن همه‌ی تصاویر، به چپ و راست بکشید.</p>
     </div>
   </div>
 
   <div class="gallery-wrap" id="galleryWrap">
     <div class="gallery-track" id="galleryTrack"></div>
     <div class="gallery-empty" id="galleryEmpty">
-      <div class="empty-orb"></div>
+      <div class="empty-orb" aria-hidden="true"></div>
       <p>گالری در انتظار تصاویر شماست</p>
       <span>عکس‌ها را با نام <code>g1.jpg</code> تا <code>g12.jpg</code> در پوشه <code>assets/images/</code> قرار دهید</span>
     </div>
@@ -332,76 +399,146 @@
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ================= RITUAL ================= -->
+<section class="ritual" id="ritual">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">◆ The Ritual</span>
+      <h2 class="section-title">Three Steps to <em>Glow</em></h2>
+      <p class="section-sub">یک روتین ساده، برای نتیجه‌ای خیره‌کننده.</p>
+    </div>
+
+    <div class="ritual-grid">
+      <article class="ritual-card reveal">
+        <div class="ritual-index">01</div>
+        <div class="ritual-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.5C12 2.5 5 9 5 14.5a7 7 0 0014 0C19 9 12 2.5 12 2.5z"/>
+          </svg>
+        </div>
+        <h3>Cleanse</h3>
+        <p class="ritual-fa">پاک‌سازی ملایم، بدون آسیب به سد طبیعی پوست.</p>
+      </article>
+
+      <article class="ritual-card reveal">
+        <div class="ritual-index">02</div>
+        <div class="ritual-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8"/>
+            <path d="M12 8v4l3 2"/>
+          </svg>
+        </div>
+        <h3>Treat</h3>
+        <p class="ritual-fa">سرم‌های هدفمند برای رطوبت، درخشش و جوان‌سازی.</p>
+      </article>
+
+      <article class="ritual-card reveal">
+        <div class="ritual-index">03</div>
+        <div class="ritual-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l2.4 7.4H22l-6.2 4.5 2.4 7.4-6.2-4.6-6.2 4.6 2.4-7.4L2 10.4h7.6z"/>
+          </svg>
+        </div>
+        <h3>Illuminate</h3>
+        <p class="ritual-fa">ماسک و مرطوب‌کننده، برای درخششی ماندگار.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
 <section class="about" id="about">
   <div class="container">
     <div class="about-card reveal">
       <div class="about-grid">
         <div class="about-media">
-          <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1600&q=90&auto=format&fit=crop" alt="">
-          <div class="about-orb"></div>
+          <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=1400&q=90&auto=format&fit=crop" alt="AURÉLIA Studio" loading="lazy">
+          <div class="about-media-orb" aria-hidden="true"></div>
         </div>
 
         <div class="about-text">
-          <span class="eyebrow">◆ About GLOW</span>
+          <span class="eyebrow">◆ About AURÉLIA</span>
           <h2 class="section-title">Where Art Meets <em>Beauty</em></h2>
           <p>
-            GLOW زاده‌ی عشق به زیبایی و وسواس در جزئیات است. ما محصولاتی را انتخاب می‌کنیم
-            که نه تنها پوست، بلکه حس درونی شما را درخشان‌تر کنند.
+            AURÉLIA زاده‌ی عشق به زیبایی و جزئیات است. از سال ۱۳۸۸ با وسواس،
+            محصولاتی را انتخاب می‌کنیم که نه‌تنها پوست و چهره، بلکه حس درونی شما را درخشان‌تر کنند.
           </p>
           <p>
             هر محصول، یک تجربه است؛ یک لحظه از روز که فقط متعلق به شماست.
           </p>
 
           <div class="about-stats">
-            <div><strong>۵۰+</strong><span>Brands</span></div>
-            <div><strong>۱۰K+</strong><span>Clients</span></div>
-            <div><strong>۱۰۰٪</strong><span>Original</span></div>
+            <div><strong>50+</strong><span>Maisons</span></div>
+            <div><strong>10K+</strong><span>Clients</span></div>
+            <div><strong>100%</strong><span>Original</span></div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <div class="container">
-    <div class="contact-card reveal">
-      <div class="contact-glow"></div>
-      <div class="contact-inner">
-        <span class="eyebrow">◆ Let's Talk</span>
-        <h2 class="section-title">بیایید <em>گفتگو</em> کنیم</h2>
-        <p>برای مشاوره‌ی اختصاصی و انتخاب محصول مناسب پوست شما، با ما در تماس باشید.</p>
-
+    <div class="contact-strip reveal" id="contact">
+      <div class="contact-strip-glow" aria-hidden="true"></div>
+      <div class="contact-strip-inner">
+        <div class="contact-info">
+          <span class="eyebrow">◆ Let's Talk</span>
+          <h3>بیایید گفتگو کنیم</h3>
+          <p>برای مشاوره‌ی اختصاصی و انتخاب محصول مناسب پوست شما، با ما در تماس باشید.</p>
+        </div>
         <div class="contact-actions">
-          <a href="https://wa.me/989120000000?text=%D8%B3%D9%84%D8%A7%D9%85%D8%8C%20%D9%85%DB%8C%E2%80%8C%D8%AE%D9%88%D8%A7%D9%85%20%D9%85%D8%B4%D8%A7%D9%88%D8%B1%D9%87%20%D8%A8%DA%AF%DB%8C%D8%B1%D9%85" target="_blank" rel="noopener" class="btn btn-primary">
+          <a href="https://wa.me/989120000000?text=%D8%B3%D9%84%D8%A7%D9%85%D8%8C%20%D9%85%DB%8C%E2%80%8C%D8%AE%D9%88%D8%A7%D9%85%20%D9%85%D8%B4%D8%A7%D9%88%D8%B1%D9%87%20%D8%A8%DA%AF%DB%8C%D8%B1%D9%85" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
             <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.94 1.34-.54.05-1.03.24-3.47-.72-2.94-1.16-4.8-4.17-4.95-4.37-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.26-.29.56-.36.75-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.56.8 1.96.87 2.1.07.14.12.31.02.5-.09.19-.14.31-.29.48-.14.17-.3.37-.43.5-.14.14-.29.29-.12.57.17.29.75 1.24 1.62 2.01 1.11.99 2.05 1.3 2.34 1.44.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.14.26.09 1.66.78 1.94.93.29.14.48.22.55.34.07.12.07.68-.17 1.36z"/></svg>
-            واتساپ
+            <span>واتساپ</span>
           </a>
-          <a href="tel:+989120000000" class="btn btn-outline">تماس تلفنی</a>
+          <a href="tel:+989120000000" class="btn btn-ghost-light btn-lg">
+            <span>تماس تلفنی</span>
+          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ================= FOOTER ================= -->
 <footer class="site-footer">
   <div class="container footer-inner">
-    <a href="#hero" class="logo">
-      <span class="logo-mark">G</span>
-      <span class="logo-text">GLOW</span>
-    </a>
-    <p class="footer-copy">© ۲۰۲۶ GLOW — All Rights Reserved.</p>
-    <div class="footer-socials">
-      <a href="#" aria-label="Instagram">IG</a>
-      <a href="#" aria-label="Telegram">TG</a>
-      <a href="#" aria-label="WhatsApp">WA</a>
+    <div class="footer-brand">
+      <a href="#hero" class="logo">
+        <span class="logo-mark">A</span>
+        <span class="logo-text">AURÉLIA</span>
+      </a>
+      <p>Where Beauty Becomes Art.</p>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#brands">برندها</a>
+        <a href="#liquid">کلکسیون</a>
+        <a href="#gallery">گالری</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">ارسال و مرجوعی</a>
+        <a href="#">گارانتی اصالت</a>
+        <a href="#contact">تماس با ما</a>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <a href="#">Instagram</a>
+        <a href="#">Telegram</a>
+        <a href="#">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <span>© ۲۰۲۶ AURÉLIA — All Rights Reserved.</span>
+      <span class="footer-made">Crafted with ◆ in Tehran</span>
     </div>
   </div>
 </footer>
 
 <script src="script.js"></script>
 </body>
-    </html>
+                                            </html>

@@ -1,15 +1,5 @@
-/* ============================================================
-   AURÉLIA — SCRIPT
-   گالری، موشن، تعامل
-   ============================================================ */
-
-/* ---------- CONFIG ---------- */
 const CONFIG = {
-  // گالری: هر عکس یه ایتم. عکس‌ها رو توی assets/images/ بذار
-  // اسم فایل‌ها: g1.jpg تا gN.jpg — هر تعداد که خواستی
-  // اگه گالری خالی باشه، پیام "در انتظار" نشون داده می‌شه
   gallery: [
-    // برای فعال‌سازی، خطوط زیر رو از کامنت خارج کن و شماره عکس‌ها رو بذار:
     // { img: 'g1',  label: 'Signature Glow' },
     // { img: 'g2',  label: 'Velvet Matte' },
     // { img: 'g3',  label: 'Rose Elixir' },
@@ -23,12 +13,10 @@ const CONFIG = {
   ]
 };
 
-/* ---------- Helpers ---------- */
 const $  = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 const imgPath = n => `assets/images/${n}.jpg`;
 
-/* ---------- 1. RENDER GALLERY ---------- */
 function renderGallery() {
   const track = $('#galleryTrack');
   const dots  = $('#galleryDots');
@@ -37,7 +25,6 @@ function renderGallery() {
   if (!track) return;
 
   if (!CONFIG.gallery.length) {
-    // حالت خالی: پیام نمایش، فلش‌ها مخفی
     if (empty) empty.style.display = 'flex';
     if (nav) nav.style.display = 'none';
     return;
@@ -50,7 +37,6 @@ function renderGallery() {
     <div class="gallery-item" data-index="${i}">
       <img src="${imgPath(g.img)}" alt="${g.label || ''}" loading="lazy" draggable="false"
            onerror="this.parentElement.style.background='linear-gradient(135deg,#7c3aed,#ff6b6b)';this.style.display='none'">
-      ${g.label ? `<div class="gallery-label">${g.label}</div>` : ''}
     </div>
   `).join('');
 
@@ -61,7 +47,6 @@ function renderGallery() {
   }
 }
 
-/* ---------- 2. GALLERY SCROLL & DRAG ---------- */
 function initGallery() {
   const track = $('#galleryTrack');
   const wrap  = $('#galleryWrap');
@@ -100,7 +85,6 @@ function initGallery() {
     track._t = setTimeout(updateActiveDot, 60);
   }, { passive: true });
 
-  // Drag (موس + تاچ)
   let isDown = false, startX = 0, startScroll = 0;
   const onDown = (clientX) => {
     isDown = true;
@@ -128,7 +112,6 @@ function initGallery() {
   track.addEventListener('touchmove',  e => onMove(e.touches[0].clientX),  { passive: true });
   track.addEventListener('touchend', onUp);
 
-  // Wheel horizontal
   track.addEventListener('wheel', e => {
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
       const atStart = track.scrollLeft <= 0;
@@ -140,7 +123,6 @@ function initGallery() {
   }, { passive: false });
 }
 
-/* ---------- 3. SCROLL REVEAL ---------- */
 function initReveal() {
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => {
@@ -153,7 +135,6 @@ function initReveal() {
   $$('.reveal').forEach(el => io.observe(el));
 }
 
-/* ---------- 4. HEADER SCROLL ---------- */
 function initHeader() {
   const header = $('#header');
   const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
@@ -161,7 +142,6 @@ function initHeader() {
   window.addEventListener('scroll', onScroll, { passive: true });
 }
 
-/* ---------- 5. MOBILE NAV ---------- */
 function initNav() {
   const burger = $('#burger'), nav = $('#nav');
   burger?.addEventListener('click', () => {
@@ -178,11 +158,10 @@ function initNav() {
   });
 }
 
-/* ---------- 6. HERO PARALLAX + ORB DRIFT ---------- */
 function initHeroMotion() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const heroImg = $('.hero-bg img');
+  const heroImg = $('.hero-bg img, .hero-bg video');
   let raf;
   window.addEventListener('scroll', () => {
     cancelAnimationFrame(raf);
@@ -192,7 +171,6 @@ function initHeroMotion() {
     });
   }, { passive: true });
 
-  // موس → حرکت ملایم orbها (فقط دسکتاپ)
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const orbs = $$('.orb');
     let mx = 0, my = 0, cx = 0, cy = 0;
@@ -214,22 +192,18 @@ function initHeroMotion() {
   }
 }
 
-/* ---------- 7. HERO TITLE PARALLAX (subtle 3D) ---------- */
 function initTilt() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-  const cards = $$('.glass-card');
-  cards.forEach(card => {
+  $$('.glass-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width - .5;
       const y = (e.clientY - r.top) / r.height - .5;
       card.style.transform = `translateY(-6px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg)`;
     });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
 
   const aboutCard = $('.about-card');
@@ -244,7 +218,6 @@ function initTilt() {
   }
 }
 
-/* ---------- 8. INIT ---------- */
 document.addEventListener('DOMContentLoaded', () => {
   renderGallery();
   initGallery();

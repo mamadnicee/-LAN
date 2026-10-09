@@ -1,90 +1,146 @@
 /* ============================================================
-   ÉLAN — SCRIPT
-   محصولات، گالری Masonry، سبد خرید، واتساپ
+   AURÉLIA — SCRIPT
+   گالری، موشن، تعامل
    ============================================================ */
 
+/* ---------- CONFIG ---------- */
 const CONFIG = {
-  whatsapp: '989120000000',
-  currency: 'تومان',
-  productsFile: 'products.json',
-
-  // گالری Masonry — عکس‌های 4K از Unsplash
-  // بعداً مشتری می‌تونه این لینک‌ها رو با عکس‌های خودش عوض کنه
+  // گالری: هر عکس یه ایتم. عکس‌ها رو توی assets/images/ بذار
+  // اسم فایل‌ها: g1.jpg تا gN.jpg — هر تعداد که خواستی
+  // اگه گالری خالی باشه، پیام "در انتظار" نشون داده می‌شه
   gallery: [
-    { src: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1600&q=90&auto=format&fit=crop', size: 'tall',  label: 'روتین صبحگاهی' },
-    { src: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1600&q=90&auto=format&fit=crop', size: 'wide',  label: 'رنگ‌های طبیعی' },
-    { src: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=90&auto=format&fit=crop', size: 'square', label: 'کلکسیون کامل' },
-    { src: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1600&q=90&auto=format&fit=crop', size: 'tall',  label: 'مراقبت از پوست' },
-    { src: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=1600&q=90&auto=format&fit=crop', size: 'square', label: 'جزئیات' },
-    { src: 'https://images.unsplash.com/photo-1583241800698-9c2e0a1a5e2b?w=1600&q=90&auto=format&fit=crop', size: 'wide',  label: 'عطر و رایحه' },
-    { src: 'https://images.unsplash.com/photo-1631730359585-38a4935cbec4?w=1600&q=90&auto=format&fit=crop', size: 'square', label: 'سرم‌های تخصصی' },
-    { src: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=1600&q=90&auto=format&fit=crop', size: 'tall',  label: 'آرایش حرفه‌ای' }
+    // برای فعال‌سازی، خطوط زیر رو از کامنت خارج کن و شماره عکس‌ها رو بذار:
+    // { img: 'g1',  label: 'Signature Glow' },
+    // { img: 'g2',  label: 'Velvet Matte' },
+    // { img: 'g3',  label: 'Rose Elixir' },
+    // { img: 'g4',  label: 'Pure Radiance' },
+    // { img: 'g5',  label: 'Silk Serum' },
+    // { img: 'g6',  label: 'Golden Hour' },
+    // { img: 'g7',  label: 'Cloud Blush' },
+    // { img: 'g8',  label: 'Aurora Mist' },
+    // { img: 'g9',  label: 'Crystal Dew' },
+    // { img: 'g10', label: 'Night Bloom' }
   ]
 };
 
 /* ---------- Helpers ---------- */
 const $  = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => [...c.querySelectorAll(s)];
-const toFa = n => Number(n).toLocaleString('fa-IR');
 const imgPath = n => `assets/images/${n}.jpg`;
 
-let PRODUCTS = [];
+/* ---------- 1. RENDER GALLERY ---------- */
+function renderGallery() {
+  const track = $('#galleryTrack');
+  const dots  = $('#galleryDots');
+  const empty = $('#galleryEmpty');
+  const nav   = $('#galleryNav');
+  if (!track) return;
 
-/* ---------- 1. LOAD PRODUCTS ---------- */
-async function loadProducts() {
-  try {
-    const res = await fetch(CONFIG.productsFile, { cache: 'no-store' });
-    if (!res.ok) throw new Error('not found');
-    PRODUCTS = await res.json();
-  } catch (err) {
-    console.warn('products.json در دسترس نیست.', err);
-    PRODUCTS = [];
-  }
-}
-
-/* ---------- 2. RENDER PRODUCTS ---------- */
-function renderProducts() {
-  const grid = $('#productsGrid');
-  if (!grid) return;
-  if (!PRODUCTS.length) {
-    grid.innerHTML = '<div class="cart-empty" style="grid-column:1/-1;text-align:center;padding:3rem 0">محصولی برای نمایش نیست.</div>';
+  if (!CONFIG.gallery.length) {
+    // حالت خالی: پیام نمایش، فلش‌ها مخفی
+    if (empty) empty.style.display = 'flex';
+    if (nav) nav.style.display = 'none';
     return;
   }
-  grid.innerHTML = PRODUCTS.map((p, i) => `
-    <article class="product-card reveal" style="transition-delay:${i * 50}ms">
-      <div class="product-media">
-        ${p.tag ? `<span class="product-tag">${p.tag}</span>` : ''}
-        <img src="${imgPath(p.id)}" alt="${p.name || ''}" loading="lazy" onerror="this.style.display='none'">
-      </div>
-      <div class="product-body">
-        <h3 class="product-name">${p.name || ''}</h3>
-        <p class="product-desc">${p.desc || ''}</p>
-        <div class="product-foot">
-          <span class="product-price">${toFa(p.price || 0)}<small>${CONFIG.currency}</small></span>
-          <button class="add-btn" data-add="${p.id}" aria-label="افزودن به سبد">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-              <path d="M12 5v14M5 12h14"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </article>
+
+  if (empty) empty.style.display = 'none';
+  if (nav) nav.style.display = 'flex';
+
+  track.innerHTML = CONFIG.gallery.map((g, i) => `
+    <div class="gallery-item" data-index="${i}">
+      <img src="${imgPath(g.img)}" alt="${g.label || ''}" loading="lazy" draggable="false"
+           onerror="this.parentElement.style.background='linear-gradient(135deg,#7c3aed,#ff6b6b)';this.style.display='none'">
+      ${g.label ? `<div class="gallery-label">${g.label}</div>` : ''}
+    </div>
   `).join('');
+
+  if (dots) {
+    dots.innerHTML = CONFIG.gallery.map((_, i) =>
+      `<button data-dot="${i}" ${i === 0 ? 'class="active"' : ''} aria-label="تصویر ${i + 1}"></button>`
+    ).join('');
+  }
 }
 
-/* ---------- 3. RENDER GALLERY (Masonry) ---------- */
-function renderGallery() {
-  const wrap = $('#galleryMasonry');
-  if (!wrap) return;
-  wrap.innerHTML = CONFIG.gallery.map((g, i) => `
-    <figure class="masonry-item masonry-item--${g.size} reveal" data-index="${i}" style="transition-delay:${i * 60}ms">
-      <img src="${g.src}" alt="${g.label || ''}" loading="lazy">
-      <figcaption>${g.label || ''}</figcaption>
-    </figure>
-  `).join('');
+/* ---------- 2. GALLERY SCROLL & DRAG ---------- */
+function initGallery() {
+  const track = $('#galleryTrack');
+  const wrap  = $('#galleryWrap');
+  const dots  = $('#galleryDots');
+  const arrows = $$('.gallery-arrow');
+  if (!track) return;
+
+  const itemWidth = () => {
+    const item = track.querySelector('.gallery-item');
+    if (!item) return 320;
+    const gap = parseFloat(getComputedStyle(track).gap) || 20;
+    return item.getBoundingClientRect().width + gap;
+  };
+
+  const scrollByStep = dir => {
+    const step = itemWidth();
+    track.scrollBy({ left: dir === 'next' ? step : -step, behavior: 'smooth' });
+  };
+
+  arrows.forEach(a => a.addEventListener('click', () => scrollByStep(a.dataset.dir)));
+
+  dots?.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const i = +b.dataset.dot;
+    track.scrollTo({ left: itemWidth() * i, behavior: 'smooth' });
+  });
+
+  const updateActiveDot = () => {
+    if (!dots || !track.querySelector('.gallery-item')) return;
+    const w = itemWidth();
+    const idx = Math.round(track.scrollLeft / w);
+    $$('#galleryDots button').forEach((b, k) => b.classList.toggle('active', k === idx));
+  };
+  track.addEventListener('scroll', () => {
+    clearTimeout(track._t);
+    track._t = setTimeout(updateActiveDot, 60);
+  }, { passive: true });
+
+  // Drag (موس + تاچ)
+  let isDown = false, startX = 0, startScroll = 0;
+  const onDown = (clientX) => {
+    isDown = true;
+    startX = clientX;
+    startScroll = track.scrollLeft;
+    wrap.classList.add('dragging');
+    track.style.scrollBehavior = 'auto';
+  };
+  const onMove = (clientX) => {
+    if (!isDown) return;
+    track.scrollLeft = startScroll - (clientX - startX) * 1.4;
+  };
+  const onUp = () => {
+    if (!isDown) return;
+    isDown = false;
+    wrap.classList.remove('dragging');
+    track.style.scrollBehavior = 'smooth';
+  };
+
+  track.addEventListener('mousedown', e => { e.preventDefault(); onDown(e.pageX); });
+  window.addEventListener('mouseup', onUp);
+  window.addEventListener('mousemove', e => onMove(e.pageX));
+
+  track.addEventListener('touchstart', e => onDown(e.touches[0].clientX), { passive: true });
+  track.addEventListener('touchmove',  e => onMove(e.touches[0].clientX),  { passive: true });
+  track.addEventListener('touchend', onUp);
+
+  // Wheel horizontal
+  track.addEventListener('wheel', e => {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      const atStart = track.scrollLeft <= 0;
+      const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+      if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+      e.preventDefault();
+      track.scrollLeft += e.deltaY;
+    }
+  }, { passive: false });
 }
 
-/* ---------- 4. REVEAL ---------- */
+/* ---------- 3. SCROLL REVEAL ---------- */
 function initReveal() {
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => {
@@ -93,19 +149,19 @@ function initReveal() {
         io.unobserve(en.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   $$('.reveal').forEach(el => io.observe(el));
 }
 
-/* ---------- 5. HEADER ---------- */
+/* ---------- 4. HEADER SCROLL ---------- */
 function initHeader() {
   const header = $('#header');
-  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 30);
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 }
 
-/* ---------- 6. NAV ---------- */
+/* ---------- 5. MOBILE NAV ---------- */
 function initNav() {
   const burger = $('#burger'), nav = $('#nav');
   burger?.addEventListener('click', () => {
@@ -122,123 +178,79 @@ function initNav() {
   });
 }
 
-/* ---------- 7. HERO FLOAT PARALLAX ---------- */
+/* ---------- 6. HERO PARALLAX + ORB DRIFT ---------- */
 function initHeroMotion() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const f1 = $('.hero-img--float-1');
-  const f2 = $('.hero-img--float-2');
-  if (!f1 || !f2) return;
 
-  // Float انیمیشن
-  let t = 0;
-  const loop = () => {
-    t += 0.005;
-    f1.style.transform = `translate3d(0, ${Math.sin(t) * 12}px, 0)`;
-    f2.style.transform = `translate3d(0, ${Math.cos(t * 1.3) * 14}px, 0)`;
-    requestAnimationFrame(loop);
-  };
-  loop();
+  const heroImg = $('.hero-bg img');
+  let raf;
+  window.addEventListener('scroll', () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const y = Math.min(window.scrollY, window.innerHeight);
+      if (heroImg) heroImg.style.transform = `translate3d(0, ${y * 0.25}px, 0) scale(1.06)`;
+    });
+  }, { passive: true });
+
+  // موس → حرکت ملایم orbها (فقط دسکتاپ)
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const orbs = $$('.orb');
+    let mx = 0, my = 0, cx = 0, cy = 0;
+    window.addEventListener('mousemove', e => {
+      mx = (e.clientX / window.innerWidth - .5) * 2;
+      my = (e.clientY / window.innerHeight - .5) * 2;
+    });
+    const loop = () => {
+      cx += (mx - cx) * .04;
+      cy += (my - cy) * .04;
+      orbs.forEach((o, i) => {
+        const depth = (i + 1) * 8;
+        o.style.marginLeft = `${cx * depth}px`;
+        o.style.marginTop  = `${cy * depth}px`;
+      });
+      requestAnimationFrame(loop);
+    };
+    loop();
+  }
 }
 
-/* ---------- 8. CART ---------- */
-const Cart = {
-  key: 'elan_cart',
-  items: [],
-  init() {
-    try { this.items = JSON.parse(localStorage.getItem(this.key) || '[]'); }
-    catch { this.items = []; }
-  },
-  save() { localStorage.setItem(this.key, JSON.stringify(this.items)); },
-  add(id) {
-    const p = PRODUCTS.find(x => Number(x.id) === Number(id));
-    if (!p) return;
-    const ex = this.items.find(i => Number(i.id) === Number(id));
-    if (ex) ex.qty++;
-    else this.items.push({ id: p.id, name: p.name, price: p.price, qty: 1 });
-    this.save(); this.render(); UI.flashCount();
-  },
-  remove(id) {
-    this.items = this.items.filter(i => Number(i.id) !== Number(id));
-    this.save(); this.render();
-  },
-  total() { return this.items.reduce((s, i) => s + i.price * i.qty, 0); },
-  count() { return this.items.reduce((s, i) => s + i.qty, 0); },
-  render() {
-    const wrap = $('#cartItems');
-    const count = $('#cartCount');
-    if (!wrap) return;
-    count.textContent = toFa(this.count());
-    count.classList.toggle('active', this.count() > 0);
-    $('#cartTotal').textContent = toFa(this.total()) + ' ' + CONFIG.currency;
+/* ---------- 7. HERO TITLE PARALLAX (subtle 3D) ---------- */
+function initTilt() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-    if (!this.items.length) {
-      wrap.innerHTML = '<div class="cart-empty">سبد خرید خالی است</div>';
-      return;
-    }
-    wrap.innerHTML = this.items.map(i => `
-      <div class="cart-item">
-        <img src="${imgPath(i.id)}" alt="${i.name}" onerror="this.style.display='none'">
-        <div>
-          <div class="cart-item-name">${i.name} × ${toFa(i.qty)}</div>
-          <div class="cart-item-price">${toFa(i.price * i.qty)} ${CONFIG.currency}</div>
-        </div>
-        <button class="cart-item-remove" data-remove="${i.id}" aria-label="حذف">✕</button>
-      </div>
-    `).join('');
-  }
-};
-
-const UI = {
-  openCart() {
-    $('#cartDrawer').classList.add('open');
-    $('#overlay').classList.add('active');
-    document.body.classList.add('locked');
-  },
-  closeCart() {
-    $('#cartDrawer').classList.remove('open');
-    $('#overlay').classList.remove('active');
-    document.body.classList.remove('locked');
-  },
-  flashCount() {
-    const c = $('#cartCount');
-    c.animate(
-      [{ transform: 'scale(1)' }, { transform: 'scale(1.5)' }, { transform: 'scale(1)' }],
-      { duration: 400, easing: 'cubic-bezier(.22,1,.36,1)' }
-    );
-  }
-};
-
-function initCart() {
-  $('#cartBtn')?.addEventListener('click', () => UI.openCart());
-  $('#cartClose')?.addEventListener('click', () => UI.closeCart());
-  $('#overlay')?.addEventListener('click', () => UI.closeCart());
-
-  document.addEventListener('click', e => {
-    const add = e.target.closest('[data-add]');
-    if (add) return Cart.add(add.dataset.add);
-    const rm = e.target.closest('[data-remove]');
-    if (rm) return Cart.remove(rm.dataset.remove);
+  const cards = $$('.glass-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      card.style.transform = `translateY(-6px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
   });
 
-  $('#checkoutBtn')?.addEventListener('click', () => {
-    if (!Cart.items.length) return alert('سبد خرید خالی است');
-    const lines = Cart.items.map(i => `• ${i.name} × ${i.qty} = ${i.price * i.qty} ${CONFIG.currency}`).join('\n');
-    const msg = `سلام 👋\nسفارش من از ÉLAN:\n\n${lines}\n\nجمع کل: ${Cart.total()} ${CONFIG.currency}\n\nلطفاً راهنمایی کنید.`;
-    window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank');
-  });
-
-  Cart.render();
+  const aboutCard = $('.about-card');
+  if (aboutCard) {
+    aboutCard.addEventListener('mousemove', e => {
+      const r = aboutCard.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      aboutCard.style.transform = `perspective(1400px) rotateX(${-y * 2}deg) rotateY(${x * 2}deg)`;
+    });
+    aboutCard.addEventListener('mouseleave', () => { aboutCard.style.transform = ''; });
+  }
 }
 
-/* ---------- 9. INIT ---------- */
-document.addEventListener('DOMContentLoaded', async () => {
-  Cart.init();
-  await loadProducts();
-  renderProducts();
+/* ---------- 8. INIT ---------- */
+document.addEventListener('DOMContentLoaded', () => {
   renderGallery();
+  initGallery();
   initReveal();
   initHeader();
   initNav();
   initHeroMotion();
-  initCart();
+  initTilt();
 });

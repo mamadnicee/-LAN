@@ -36,7 +36,7 @@ function renderGallery() {
   track.innerHTML = CONFIG.gallery.map((g, i) => `
     <div class="gallery-item" data-index="${i}">
       <img src="${imgPath(g.img)}" alt="${g.label || ''}" loading="lazy" draggable="false"
-           onerror="this.parentElement.style.background='linear-gradient(135deg,#7c3aed,#ff6b6b)';this.style.display='none'">
+           onerror="this.parentElement.style.background='linear-gradient(135deg,#c9f1a8,#e02b52)';this.style.display='none'">
     </div>
   `).join('');
 
@@ -161,18 +161,18 @@ function initNav() {
 function initHeroMotion() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const heroImg = $('.hero-bg img, .hero-bg video');
+  const heroImg = $('.hero-img');
   let raf;
   window.addEventListener('scroll', () => {
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => {
       const y = Math.min(window.scrollY, window.innerHeight);
-      if (heroImg) heroImg.style.transform = `translate3d(0, ${y * 0.25}px, 0) scale(1.06)`;
+      if (heroImg) heroImg.style.transform = `translate3d(0, ${y * 0.25}px, 0) scale(1.03)`;
     });
   }, { passive: true });
 
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    const orbs = $$('.orb');
+    const blobs = $$('.blob');
     let mx = 0, my = 0, cx = 0, cy = 0;
     window.addEventListener('mousemove', e => {
       mx = (e.clientX / window.innerWidth - .5) * 2;
@@ -181,8 +181,8 @@ function initHeroMotion() {
     const loop = () => {
       cx += (mx - cx) * .04;
       cy += (my - cy) * .04;
-      orbs.forEach((o, i) => {
-        const depth = (i + 1) * 8;
+      blobs.forEach((o, i) => {
+        const depth = (i + 1) * 10;
         o.style.marginLeft = `${cx * depth}px`;
         o.style.marginTop  = `${cy * depth}px`;
       });
@@ -196,26 +196,15 @@ function initTilt() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-  $$('.glass-card').forEach(card => {
+  $$('.why-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width - .5;
       const y = (e.clientY - r.top) / r.height - .5;
-      card.style.transform = `translateY(-6px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg)`;
+      card.style.transform = `perspective(1200px) translateY(-6px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg)`;
     });
     card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
-
-  const aboutCard = $('.about-card');
-  if (aboutCard) {
-    aboutCard.addEventListener('mousemove', e => {
-      const r = aboutCard.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - .5;
-      const y = (e.clientY - r.top) / r.height - .5;
-      aboutCard.style.transform = `perspective(1400px) rotateX(${-y * 2}deg) rotateY(${x * 2}deg)`;
-    });
-    aboutCard.addEventListener('mouseleave', () => { aboutCard.style.transform = ''; });
-  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

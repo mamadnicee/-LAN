@@ -1,14 +1,14 @@
 const CONFIG = {
   gallery: [
-    // { img: 'g1',  label: 'Signature Glow' },
-    // { img: 'g2',  label: 'Velvet Matte' },
-    // { img: 'g3',  label: 'Rose Elixir' },
-    // { img: 'g4',  label: 'Pure Radiance' },
-    // { img: 'g5',  label: 'Silk Serum' },
-    // { img: 'g6',  label: 'Golden Hour' },
-    // { img: 'g7',  label: 'Cloud Blush' },
-    // { img: 'g8',  label: 'Aurora Mist' },
-    // { img: 'g9',  label: 'Crystal Dew' },
+    // { img: 'g1', label: 'Signature Glow' },
+    // { img: 'g2', label: 'Velvet Matte' },
+    // { img: 'g3', label: 'Rose Elixir' },
+    // { img: 'g4', label: 'Pure Radiance' },
+    // { img: 'g5', label: 'Silk Serum' },
+    // { img: 'g6', label: 'Golden Hour' },
+    // { img: 'g7', label: 'Cloud Blush' },
+    // { img: 'g8', label: 'Aurora Mist' },
+    // { img: 'g9', label: 'Crystal Dew' },
     // { img: 'g10', label: 'Night Bloom' }
   ]
 };
@@ -36,7 +36,7 @@ function renderGallery() {
   track.innerHTML = CONFIG.gallery.map((g, i) => `
     <div class="gallery-item" data-index="${i}">
       <img src="${imgPath(g.img)}" alt="${g.label || ''}" loading="lazy" draggable="false"
-           onerror="this.parentElement.style.background='linear-gradient(135deg,#c9f1a8,#e02b52)';this.style.display='none'">
+           onerror="this.parentElement.style.background='linear-gradient(135deg,#7c3aed,#ff6b6b)';this.style.display='none'">
     </div>
   `).join('');
 
@@ -131,13 +131,22 @@ function initReveal() {
         io.unobserve(en.target);
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   $$('.reveal').forEach(el => io.observe(el));
 }
 
 function initHeader() {
   const header = $('#header');
-  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+  let ticking = false;
+  const onScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        header.classList.toggle('scrolled', window.scrollY > 30);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 }
@@ -148,63 +157,79 @@ function initNav() {
     const open = burger.classList.toggle('open');
     nav.classList.toggle('open', open);
     burger.setAttribute('aria-expanded', open);
+    document.body.classList.toggle('locked', open);
   });
   nav?.addEventListener('click', e => {
     if (e.target.tagName === 'A') {
       burger.classList.remove('open');
       nav.classList.remove('open');
       burger.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('locked');
     }
   });
 }
 
-function initHeroMotion() {
+function initOrbDrift() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-  const heroImg = $('.hero-img');
-  let raf;
-  window.addEventListener('scroll', () => {
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      const y = Math.min(window.scrollY, window.innerHeight);
-      if (heroImg) heroImg.style.transform = `translate3d(0, ${y * 0.25}px, 0) scale(1.03)`;
+  const orbs = $$('.orb');
+  let mx = 0, my = 0, cx = 0, cy = 0;
+  window.addEventListener('mousemove', e => {
+    mx = (e.clientX / window.innerWidth - .5) * 2;
+    my = (e.clientY / window.innerHeight - .5) * 2;
+  });
+  const loop = () => {
+    cx += (mx - cx) * .035;
+    cy += (my - cy) * .035;
+    orbs.forEach((o, i) => {
+      const depth = (i + 1) * 10;
+      o.style.marginLeft = `${cx * depth}px`;
+      o.style.marginTop  = `${cy * depth}px`;
     });
-  }, { passive: true });
-
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    const blobs = $$('.blob');
-    let mx = 0, my = 0, cx = 0, cy = 0;
-    window.addEventListener('mousemove', e => {
-      mx = (e.clientX / window.innerWidth - .5) * 2;
-      my = (e.clientY / window.innerHeight - .5) * 2;
-    });
-    const loop = () => {
-      cx += (mx - cx) * .04;
-      cy += (my - cy) * .04;
-      blobs.forEach((o, i) => {
-        const depth = (i + 1) * 10;
-        o.style.marginLeft = `${cx * depth}px`;
-        o.style.marginTop  = `${cy * depth}px`;
-      });
-      requestAnimationFrame(loop);
-    };
-    loop();
-  }
+    requestAnimationFrame(loop);
+  };
+  loop();
 }
 
 function initTilt() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-  $$('.why-card').forEach(card => {
+  $$('.hero-chip').forEach(card => {
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width - .5;
       const y = (e.clientY - r.top) / r.height - .5;
-      card.style.transform = `perspective(1200px) translateY(-6px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg)`;
+      card.style.transform = `translateY(-6px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg)`;
     });
     card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
+
+  const aboutCard = $('.about-card');
+  if (aboutCard) {
+    aboutCard.addEventListener('mousemove', e => {
+      const r = aboutCard.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      aboutCard.style.transform = `perspective(1600px) rotateX(${-y * 1.6}deg) rotateY(${x * 1.6}deg)`;
+    });
+    aboutCard.addEventListener('mouseleave', () => { aboutCard.style.transform = ''; });
+  }
+}
+
+function initHeroParallax() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const img = $('.hero-image-inner img');
+  if (!img) return;
+  let raf;
+  window.addEventListener('scroll', () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const y = Math.min(window.scrollY, window.innerHeight);
+      img.style.transform = `translate3d(0, ${y * 0.08}px, 0) scale(${1 + y * 0.00008})`;
+    });
+  }, { passive: true });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -213,6 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   initHeader();
   initNav();
-  initHeroMotion();
+  initOrbDrift();
   initTilt();
+  initHeroParallax();
 });
